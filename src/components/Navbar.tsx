@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import NavLinks from "./NavLink";
-
+import logo from "../assets/logo.png";
 const Navbar: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure(); // Controls Drawer
 
@@ -38,7 +38,7 @@ const Navbar: React.FC = () => {
         <Flex alignItems="center">
           <Link as={RouterLink} to="/">
             <Image
-              src="/src/assets/logo.png"
+              src={logo}
               alt="Logo"
               boxSize={{ base: "50px", md: "76px" }} // Responsive logo size
               mr={4}

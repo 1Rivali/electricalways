@@ -31,6 +31,7 @@ import contr3 from "../assets/contractors-logos/3.png";
 import contr4 from "../assets/contractors-logos/4.png";
 import contr5 from "../assets/contractors-logos/5.png";
 import contr8 from "../assets/contractors-logos/8.png";
+import factory4 from "../assets/factory/factory4.png";
 import saudiMap from "../assets/saudi-arabia.png";
 import serviceImg from "../assets/Service-1.jpg";
 import { VideoBackground } from "../components";
@@ -403,11 +404,7 @@ const HomePage: React.FC = () => {
               minHeight={{ base: "full", lg: "container.sm" }}
               minWidth={{ base: "full", lg: "container.md" }}
             >
-              <Image
-                src="/src/assets/factory/factory4.png"
-                height={"full"}
-                width={"full"}
-              />
+              <Image src={factory4} height={"full"} width={"full"} />
             </Box>
             <Box
               bg="black"
