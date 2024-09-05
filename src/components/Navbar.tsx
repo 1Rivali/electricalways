@@ -66,14 +66,14 @@ const Navbar: React.FC = () => {
         />
 
         {/* Toggle Color Mode Button */}
-        {/* <IconButton
+        <IconButton
           aria-label="Toggle color mode"
           icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
           onClick={toggleColorMode}
           variant="ghost"
           size={{ base: "sm", md: "md" }}
           ml={2}
-        /> */}
+        />
       </Flex>
 
       {/* Mobile Drawer */}
