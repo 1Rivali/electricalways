@@ -1,6 +1,13 @@
 import { Box, Heading, Image, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import React from "react";
-
+import battery from "../assets/icons/batter-icon.png";
+import cableFastners from "../assets/icons/cable-fasteners-icon.png";
+import cableManagement from "../assets/icons/cable-management-icon.png";
+import fastners from "../assets/icons/fastners-icon.png";
+import guards from "../assets/icons/guards-icon.png";
+import light from "../assets/icons/light-icon.png";
+import rollers from "../assets/icons/rollers-icon.png";
+import structuralSupport from "../assets/icons/structural-support-icon.png";
 interface ProductCategoryProps {
   icon: string;
   title: string;
@@ -48,42 +55,42 @@ const ProductCategoriesGrid: React.FC = () => {
     <Box px={{ base: 4, md: 8 }} py={8}>
       <SimpleGrid columns={{ base: 1, md: 1, lg: 2 }} spacing={10}>
         <ProductCategory
-          icon={"/src/assets/icons/cable-management-icon.png"}
+          icon={cableManagement}
           title="Cable Management System"
           description="Explore our comprehensive range of cutting-edge cable management systems to streamline installation, enhance safety, and revolutionize cable organization."
         />
         <ProductCategory
-          icon={"/src/assets/icons/structural-support-icon.png"}
+          icon={structuralSupport}
           title="Structural Support Systems"
           description="Premier Manufacturer of precision C-Channel profiles and accessories providing top-quality, reliable structural solutions."
         />
         <ProductCategory
-          icon={"/src/assets/icons/cable-fasteners-icon.png"}
+          icon={cableFastners}
           title="Cable Fasteners"
           description="Introducing our top-quality cable fasteners for efficient and secure cable management solutions."
         />
         <ProductCategory
-          icon={"/src/assets/icons/rollers-icon.png"}
+          icon={rollers}
           title="Different Types of Rollers"
           description="Explore our high-quality cable and pipe rollers designed for various industrial needs."
         />
         <ProductCategory
-          icon={"/src/assets/icons/fastners-icon.png"}
+          icon={fastners}
           title="Fasteners & Brackets"
           description="Morbi eu neque vel quam lobortis en efficitur et dignissim felis."
         />
         <ProductCategory
-          icon={"/src/assets/icons/batter-icon.png"}
+          icon={battery}
           title="Battery Racks/Cabinets"
           description="Durable and modular Battery Racks, Pedestals & Switch Boxes designed with your needs and measurements."
         />
         <ProductCategory
-          icon={"/src/assets/icons/light-icon.png"}
+          icon={light}
           title="Lighting Columns/Poles"
           description="Premier manufacturer of diverse pole structures and guards with precision plasma cutting tailored to meet your specific needs."
         />
         <ProductCategory
-          icon={"/src/assets/icons/guards-icon.png"}
+          icon={guards}
           title="Guards"
           description="Introducing our top-quality cable fasteners for efficient and secure cable management solutions."
         />
