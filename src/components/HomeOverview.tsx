@@ -89,12 +89,12 @@ export default function HomeOverview() {
 
         <Text color={"grey"} mt={5} fontSize={{ base: "lg", md: "2xl" }}>
           Electrical Ways is a leading manufacturer in Cable Management Systems
-          and has been prominent name in the industry since 2003, with roots and
-          experience dating back to 1991. We proudly offer a comprehensive range
-          of cable tray solutions to meet the diverse needs of our customers. In
-          addition, we specialize in various steel fabrications, providing
-          custom solutions to fulfill any requirements for contractors on sites
-          and projects.
+          and has been a prominent name in the industry since 2003, with roots
+          and experience dating back to 1991. We proudly offer a comprehensive
+          range of cable tray solutions to meet the diverse needs of our
+          customers. In addition, we specialize in various steel fabrications,
+          providing custom solutions to fulfill any requirements for contractors
+          on sites and projects.
         </Text>
       </Container>
     </HStack>
