@@ -34,7 +34,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ images, ...rest }) => {
   const handlers = useSwipeable({
     onSwipedLeft: handleNext,
     onSwipedRight: handlePrevious,
-    preventDefaultTouchmoveEvent: true,
+
     trackMouse: true, // Enables swipe on desktop with mouse drag
   });
 
