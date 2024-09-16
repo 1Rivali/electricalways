@@ -1,4 +1,4 @@
-import { HamburgerIcon } from "@chakra-ui/icons";
+import { HamburgerIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import {
   Box,
   Drawer,
@@ -12,6 +12,7 @@ import {
   IconButton,
   Image,
   Link,
+  useColorMode,
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -20,7 +21,7 @@ import NavLinks from "./NavLink";
 import logo from "../assets/logo.png";
 const Navbar: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure(); // Controls Drawer
-
+  const { colorMode, toggleColorMode } = useColorMode();
   const bg = useColorModeValue("navbar.light", "navbar.dark");
   const color = useColorModeValue("text.light", "text.dark");
   const activeColor = "brand.500";
@@ -66,14 +67,14 @@ const Navbar: React.FC = () => {
         />
 
         {/* Toggle Color Mode Button */}
-        {/* <IconButton
+        <IconButton
           aria-label="Toggle color mode"
           icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
           onClick={toggleColorMode}
           variant="ghost"
           size={{ base: "sm", md: "md" }}
           ml={2}
-        /> */}
+        />
       </Flex>
 
       {/* Mobile Drawer */}

@@ -12,9 +12,8 @@ const NavLinks: React.FC<NavLinksProps> = ({ activeColor, color, onClick }) => {
 
   const links = [
     { to: "/", label: "Home" },
-    { to: "/about", label: "About Us" },
+    { to: "/credentials", label: "credentials" },
     { to: "/products-services", label: "Products & Services" },
-    { to: "/projects", label: "Projects" },
     { to: "/contact", label: "Contact Us" },
   ];
 

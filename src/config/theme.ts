@@ -39,7 +39,7 @@ const theme = extendTheme({
         },
 
         background: {
-            light: "#d7e6f5", // Using secondary color
+            light: "#ffffff", // Using secondary color
             dark: "#000000", // Navy blueish background for dark theme
         },
         text: {

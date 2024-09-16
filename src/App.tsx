@@ -4,8 +4,8 @@ import "@fontsource/oswald/700.css";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import {
-  AboutUs,
   ContactUs,
+  Credentials,
   HomePage,
   ProductsAndServices,
   Projects,
@@ -19,7 +19,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutUs />} />
+        <Route path="/credentials" element={<Credentials />} />
         <Route path="/products-services" element={<ProductsAndServices />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/contact" element={<ContactUs />} />

@@ -6,6 +6,7 @@ import {
   Icon,
   Image,
   Text,
+  useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
 import CountUp from "react-countup";
@@ -14,6 +15,10 @@ import homeOverview1 from "../assets/homeoverview/homeoverview1.png";
 import homeOverview2 from "../assets/parts/3.png";
 
 export default function HomeOverview() {
+  const experienceColor = useColorModeValue(
+    "rgba(255,255,255,1)",
+    "rgba(0,0,0,1)"
+  );
   return (
     <HStack
       py={{ base: "16px", md: "32px" }}
@@ -36,9 +41,7 @@ export default function HomeOverview() {
             borderRadius={"32px"}
             py={{ base: 5, md: 10 }}
             fontSize={{ base: "40px", md: "64px" }}
-            background={
-              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(49,99,158,1) 100%)"
-            }
+            background={`linear-gradient(to bottom, ${experienceColor} 0%, rgba(49,99,158,1) 100%)`}
           >
             <Icon
               width={{ base: "40px", md: "50px", lg: "75px" }}
