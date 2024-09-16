@@ -1,13 +1,12 @@
 import {
-  Container,
-  Text,
-  Heading,
-  Button,
-  useColorModeValue,
   Box,
+  Button,
+  Heading,
+  Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
 import { FC } from "react";
+import { Link } from "react-router-dom";
 
 interface ContactSectionProps {
   minWidth?: string | object;

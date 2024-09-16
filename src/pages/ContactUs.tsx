@@ -3,11 +3,9 @@ import {
   Button,
   Container,
   FormControl,
-  Grid,
   GridItem,
   Heading,
   Icon,
-  Image,
   Input,
   SimpleGrid,
   Stack,
@@ -22,7 +20,6 @@ import {
   FaMapMarkerAlt,
   FaPhoneAlt,
 } from "react-icons/fa";
-import contactus2 from "../assets/contactus2.jpeg";
 
 const ContactUs = () => {
   const formColor = useColorModeValue("black", "white");
