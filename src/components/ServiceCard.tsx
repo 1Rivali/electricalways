@@ -7,7 +7,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { useSwipeable } from "react-swipeable";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 
 export interface ProductData {
@@ -39,12 +38,6 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ images, ...rest }) => {
     );
   };
 
-  const handlers = useSwipeable({
-    onSwipedLeft: handleNext,
-    onSwipedRight: handlePrevious,
-    trackMouse: true, // Enables swipe on desktop with mouse drag
-  });
-
   const handleToggleDescription = () => {
     setShowDescription((prev) => !prev);
   };
@@ -62,7 +55,6 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ images, ...rest }) => {
       overflow="hidden"
       cursor="pointer"
       onClick={handleToggleDescription}
-      {...handlers} // Attach swipe handlers
     >
       {/* Left Arrow */}
       <IconButton
