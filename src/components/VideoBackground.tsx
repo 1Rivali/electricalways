@@ -2,36 +2,26 @@
 import { Box, Image } from "@chakra-ui/react";
 import React from "react";
 import Marquee from "react-fast-marquee";
-import contr1 from "../assets/contractors-logos/1.png";
-import contr10 from "../assets/contractors-logos/10.png";
-import contr11 from "../assets/contractors-logos/11.png";
-import contr12 from "../assets/contractors-logos/12.png";
-import contr13 from "../assets/contractors-logos/13.png";
-import contr14 from "../assets/contractors-logos/14.png";
-import contr15 from "../assets/contractors-logos/15.png";
-import contr16 from "../assets/contractors-logos/16.png";
-import contr17 from "../assets/contractors-logos/17.png";
-import contr18 from "../assets/contractors-logos/18.png";
-import contr19 from "../assets/contractors-logos/19.png";
-import contr2 from "../assets/contractors-logos/2.png";
-import contr20 from "../assets/contractors-logos/20.png";
-import contr21 from "../assets/contractors-logos/21.png";
-import contr22 from "../assets/contractors-logos/22.png";
-import contr23 from "../assets/contractors-logos/23.png";
-import contr24 from "../assets/contractors-logos/24.png";
-import contr25 from "../assets/contractors-logos/25.png";
-import contr26 from "../assets/contractors-logos/26.png";
-import contr27 from "../assets/contractors-logos/27.png";
-import contr28 from "../assets/contractors-logos/28.png";
-import contr29 from "../assets/contractors-logos/29.png";
-import contr3 from "../assets/contractors-logos/3.png";
-import contr30 from "../assets/contractors-logos/30.png";
-import contr4 from "../assets/contractors-logos/4.png";
-import contr5 from "../assets/contractors-logos/5.png";
-import contr6 from "../assets/contractors-logos/6.png";
-import contr7 from "../assets/contractors-logos/7.png";
-import contr8 from "../assets/contractors-logos/8.png";
-import contr9 from "../assets/contractors-logos/9.png";
+import contr1 from "../assets/contracters/1.png";
+import contr2 from "../assets/contracters/2.png";
+import contr3 from "../assets/contracters/3.gif";
+import contr4 from "../assets/contracters/4.png";
+import contr5 from "../assets/contracters/5.png";
+import contr6 from "../assets/contracters/6.png";
+import contr7 from "../assets/contracters/7.png";
+import contr8 from "../assets/contracters/8.png";
+import contr9 from "../assets/contracters/9.png";
+import contr10 from "../assets/contracters/10.png";
+import contr11 from "../assets/contracters/11.png";
+import contr12 from "../assets/contracters/12.png";
+import contr13 from "../assets/contracters/13.png";
+import contr14 from "../assets/contracters/14.png";
+import contr15 from "../assets/contracters/15.png";
+import contr16 from "../assets/contracters/16.png";
+import contr17 from "../assets/contracters/17.png";
+import contr18 from "../assets/contracters/18.png";
+import contr19 from "../assets/contracters/19.png";
+
 import backgroundVideo from "../assets/home-background-video.mp4";
 import { blackWithAlpha, whiteWithAlpha } from "../constants/colors";
 const images = [
@@ -54,17 +44,6 @@ const images = [
   contr17,
   contr18,
   contr19,
-  contr20,
-  contr21,
-  contr22,
-  contr23,
-  contr24,
-  contr25,
-  contr26,
-  contr27,
-  contr28,
-  contr29,
-  contr30,
 ];
 const VideoBackground: React.FC = () => {
   // const textSize = useBreakpointValue({ base: "md", md: "lg", lg: "7xl" });
@@ -119,7 +98,7 @@ const VideoBackground: React.FC = () => {
               key={index}
               src={src}
               boxSize={"65px"}
-              objectFit="fill"
+              objectFit="contain"
               alt={`Image ${index + 1}`}
             />
           ))}

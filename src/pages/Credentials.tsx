@@ -44,6 +44,9 @@ const DropdownItem: React.FC<DropdownItemProps> = ({
         <Text mb={2}>{description}</Text>
         {/* Display barcode image */}
         <Image
+          background={"brand.500"}
+          p={3}
+          borderRadius={"14px"}
           src={barcode}
           alt={`${title} Barcode`}
           mb={2}

@@ -1,6 +1,14 @@
-import { Box, BoxProps, Divider, Flex, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import {
+  Box,
+  BoxProps,
+  Divider,
+  Flex,
+  IconButton,
+  Text,
+} from "@chakra-ui/react";
+import { useState } from "react";
 import { useSwipeable } from "react-swipeable";
+import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 
 export interface ProductData {
   imageUrl: string;
@@ -16,16 +24,16 @@ interface ServiceCardProps extends BoxProps {
 const ServiceCard: React.FC<ServiceCardProps> = ({ images, ...rest }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showDescription, setShowDescription] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isFirstHover, setIsFirstHover] = useState(true);
 
   const currentImage = images[currentIndex];
 
-  const handleNext = () => {
+  const handleNext = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent triggering the description toggle
     setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
-  const handlePrevious = () => {
+  const handlePrevious = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent triggering the description toggle
     setCurrentIndex(
       (prevIndex) => (prevIndex - 1 + images.length) % images.length
     );
@@ -34,35 +42,8 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ images, ...rest }) => {
   const handlers = useSwipeable({
     onSwipedLeft: handleNext,
     onSwipedRight: handlePrevious,
-
     trackMouse: true, // Enables swipe on desktop with mouse drag
   });
-
-  useEffect(() => {
-    let timeout;
-
-    if (isHovered && !showDescription) {
-      if (isFirstHover) {
-        handleNext();
-        setIsFirstHover(false);
-      }
-      timeout = setTimeout(() => {
-        handleNext();
-      }, 1500);
-    }
-
-    return () => clearTimeout(timeout);
-  }, [isHovered, currentIndex, showDescription]);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-    setIsFirstHover(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setIsFirstHover(false);
-  };
 
   const handleToggleDescription = () => {
     setShowDescription((prev) => !prev);
@@ -79,21 +60,46 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ images, ...rest }) => {
       backgroundPosition="center"
       color="white"
       overflow="hidden"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onClick={handleToggleDescription}
       cursor="pointer"
-      transition="all 0.5s ease-in-out"
-      justifyContent={"end"}
+      onClick={handleToggleDescription}
       {...handlers} // Attach swipe handlers
     >
+      {/* Left Arrow */}
+      <IconButton
+        aria-label="Previous Image"
+        icon={<ArrowLeftIcon />}
+        position="absolute"
+        left={2}
+        top="50%"
+        transform="translateY(-50%)"
+        bg="rgba(0, 0, 0, 0.5)"
+        color="white"
+        _hover={{ bg: "rgba(0, 0, 0, 0.8)" }}
+        onClick={handlePrevious}
+        zIndex={10}
+      />
+
+      {/* Right Arrow */}
+      <IconButton
+        aria-label="Next Image"
+        icon={<ArrowRightIcon />}
+        position="absolute"
+        right={2}
+        top="50%"
+        transform="translateY(-50%)"
+        bg="rgba(0, 0, 0, 0.5)"
+        color="white"
+        _hover={{ bg: "rgba(0, 0, 0, 0.8)" }}
+        onClick={handleNext}
+        zIndex={10}
+      />
+
       <Flex
-        position={"sticky"}
+        position={"absolute"}
         bottom={0}
-        top={"100%"}
+        width="100%"
         direction="column"
         align="flex-start"
-        height={"fit-content"}
         p={4}
         bg="rgba(0, 0, 0, 0.75)"
         transition="all 0.5s ease-in-out"
