@@ -7,14 +7,8 @@ import {
   Box,
   Button,
   Text,
-  Image,
 } from "@chakra-ui/react";
-import catalogue from "../assets/barcodes/EWFC_Catalogue__Barcode-removebg-preview.png";
-import pastProjects from "../assets/barcodes/Profile.png";
-import certificates from "../assets/barcodes/Certificates.png";
-import iso from "../assets/barcodes/ISO.png";
-import testReports from "../assets/barcodes/Test Report.png";
-import approval from "../assets/barcodes/Approval.png";
+import { assetsBaseURL } from "../services/api-service";
 
 interface DropdownItemProps {
   title: string;
@@ -33,26 +27,16 @@ const DropdownItem: React.FC<DropdownItemProps> = ({
   };
 
   return (
-    <AccordionItem>
+    <AccordionItem color={"black"}>
       <AccordionButton>
-        <Box flex="1" textAlign="left">
+        <Box flex="1" textAlign="left" fontSize={"24px"} fontWeight={"bold"}>
           {title}
         </Box>
         <AccordionIcon />
       </AccordionButton>
       <AccordionPanel pb={4}>
         <Text mb={2}>{description}</Text>
-        {/* Display barcode image */}
-        <Image
-          background={"brand.500"}
-          p={3}
-          borderRadius={"14px"}
-          src={barcode}
-          alt={`${title} Barcode`}
-          mb={2}
-          boxSize="150px"
-          objectFit="contain"
-        />
+
         <Button colorScheme="blue" onClick={handleOpenBarcode}>
           Open Barcode
         </Button>
@@ -66,37 +50,45 @@ const Credentials = () => {
     {
       title: "Catalogue",
       description: "Description for item 1",
-      barcode: catalogue, // Image URL for the barcode
+      barcode: `${assetsBaseURL}/pdfs/catalog.pdf`, // Image URL for the barcode
     },
     {
       title: "Certificates",
       description: "Description for item 2",
-      barcode: certificates,
+      barcode: `${assetsBaseURL}/pdfs/certificates.pdf`,
     },
     {
       title: "Approvals",
       description: "Description for item 3",
-      barcode: approval,
+      barcode: `${assetsBaseURL}/pdfs/approval.pdf`,
     },
     {
       title: "ISO Certificates",
-      description: "Description for item 4",
-      barcode: iso,
+      description: "description for item 4",
+      barcode: `${assetsBaseURL}/pdfs/iso.pdf`,
     },
     {
       title: "Test Reports",
       description: "Description for item 5",
-      barcode: testReports,
+      barcode: `${assetsBaseURL}/pdfs/test.pdf`,
     },
     {
       title: "Past Projects",
       description: "Description for item 6",
-      barcode: pastProjects,
+      barcode: `${assetsBaseURL}/pdfs/pastprojects.pdf`,
     },
   ];
 
   return (
-    <Box width="80%" mx="auto" mt={10}>
+    <Box
+      width="80%"
+      mx="auto"
+      mt={10}
+      background={
+        " conic-gradient(from -60deg at 50% calc(100%/3),#91a8cf 0 120deg,#0000 0), conic-gradient(from 120deg at 50% calc(200%/3),#91a8cf 0 120deg,#0000 0), conic-gradient(from  60deg at calc(200%/3),#91a8cf 60deg,#4c70ae 0 120deg,#0000 0), conic-gradient(from 180deg at calc(100%/3),#2d4367 60deg,#91a8cf 0 120deg,#0000 0), linear-gradient(90deg,#2d4367 calc(100%/6),#4c70ae 0 50%, #2d4367 0 calc(500%/6), #4c70ae 0);"
+      }
+      backgroundSize={"cover"}
+    >
       <Accordion allowMultiple>
         {dropdownItems.map((item, index) => (
           <DropdownItem

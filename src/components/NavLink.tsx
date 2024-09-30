@@ -13,34 +13,68 @@ const NavLinks: React.FC<NavLinksProps> = ({ activeColor, color, onClick }) => {
   const links = [
     { to: "/", label: "Home" },
     { to: "/credentials", label: "Credentials" },
-    { to: "/products-services", label: "Products & Services" },
+    { to: "/products", label: "Products" },
     { to: "/contact", label: "Contact Us" },
   ];
+  const adminLinks = [
+    {
+      to: "/admin/slideshow",
+      label: "Slide show",
+    },
 
+    {
+      to: "/admin/products",
+      label: "Products",
+    },
+    {
+      to: "/admin/contactus",
+      label: "Contact Us",
+    },
+  ];
+  const token = localStorage.getItem("token");
   return (
     <Stack
       flexDirection={{ base: "column", md: "row" }}
       alignItems="flex-start"
       spacing={4}
     >
-      {links.map((link) => (
-        <Link
-          key={link.to}
-          as={RouterLink}
-          to={link.to}
-          mx={2}
-          px={3}
-          py={2}
-          borderRadius="md"
-          fontSize="xl"
-          fontWeight={location.pathname === link.to ? "bold" : "normal"}
-          color={location.pathname === link.to ? activeColor : color}
-          _hover={{ textDecoration: "none", color: activeColor }}
-          onClick={onClick} // Close drawer on mobile when a link is clicked
-        >
-          {link.label}
-        </Link>
-      ))}
+      {token
+        ? adminLinks.map((link) => (
+            <Link
+              key={link.to}
+              as={RouterLink}
+              to={link.to}
+              mx={2}
+              px={3}
+              py={2}
+              borderRadius="md"
+              fontSize="xl"
+              fontWeight={location.pathname === link.to ? "bold" : "normal"}
+              color={location.pathname === link.to ? activeColor : color}
+              _hover={{ textDecoration: "none", color: activeColor }}
+              onClick={onClick} // Close drawer on mobile when a link is clicked
+            >
+              {link.label}
+            </Link>
+          ))
+        : links.map((link) => (
+            <Link
+              key={link.to}
+              as={RouterLink}
+              to={link.to}
+              mx={2}
+              px={3}
+              py={2}
+              borderRadius="md"
+              fontSize="xl"
+              fontWeight={location.pathname === link.to ? "bold" : "normal"}
+              color={location.pathname === link.to ? activeColor : color}
+              _hover={{ textDecoration: "none", color: activeColor }}
+              onClick={onClick} // Close drawer on mobile when a link is clicked
+            >
+              {link.label}
+            </Link>
+          ))}
     </Stack>
   );
 };

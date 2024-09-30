@@ -49,7 +49,14 @@ const VideoBackground: React.FC = () => {
   // const textSize = useBreakpointValue({ base: "md", md: "lg", lg: "7xl" });
 
   return (
-    <Box position="relative" width="100%" height="85vh" overflow="hidden">
+    <Box
+      p={0}
+      m={0}
+      position="relative"
+      width="100%"
+      height="85vh"
+      overflow="hidden"
+    >
       <video
         autoPlay
         loop
@@ -59,7 +66,7 @@ const VideoBackground: React.FC = () => {
           width: "100%",
           height: "100%",
           objectFit: "cover",
-          borderRadius: "15px", // Adjust the radius as needed
+          // Adjust the radius as needed
         }}
       >
         <source src={backgroundVideo} type="video/mp4" />

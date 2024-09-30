@@ -1,31 +1,42 @@
-import { Box, Heading, Image, SimpleGrid, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Center,
+  Heading,
+  Image,
+  SimpleGrid,
+  Spinner,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import React from "react";
-import battery from "../assets/icons/batter-icon.png";
-import cableFastners from "../assets/icons/cable-fasteners-icon.png";
-import cableManagement from "../assets/icons/cable-management-icon.png";
-import fastners from "../assets/icons/fastners-icon.png";
-import guards from "../assets/icons/guards-icon.png";
-import light from "../assets/icons/light-icon.png";
-import rollers from "../assets/icons/rollers-icon.png";
-import structuralSupport from "../assets/icons/structural-support-icon.png";
+import { useNavigate } from "react-router-dom";
+import useCategories from "../hooks/useCategories";
+import { assetsBaseURL } from "../services/api-service";
 interface ProductCategoryProps {
+  id: number;
   icon: string;
   title: string;
   description: string;
 }
 
-const ProductCategory: React.FC<ProductCategoryProps> = ({
+export const CategoryCard: React.FC<ProductCategoryProps> = ({
+  id,
   icon,
   title,
   description,
 }) => {
+  const navigate = useNavigate();
   return (
     <Stack
-      flexDirection={{ base: "column", md: "row" }}
+      flexDirection={{ base: "column", md: "column" }}
       spacing={{ base: 6, md: 10 }}
-      justify={{ base: "center", md: "flex-start" }}
-      alignItems="start"
-      textAlign={{ base: "center", md: "start" }}
+      justify="center"
+      alignItems="center"
+      textAlign="center"
+      border={"1px solid"}
+      borderColor={"brand.500"}
+      p={5}
     >
       <Image
         src={icon}
@@ -37,63 +48,57 @@ const ProductCategory: React.FC<ProductCategoryProps> = ({
         display={"flex"}
         flexDirection="column"
         justifyContent={"space-between"}
-        textAlign={{ base: "center", md: "left" }}
+        textAlign={{ base: "center", md: "center" }}
       >
-        <Heading as="h3" size={{ base: "sm", md: "md" }} color="white">
+        <Heading as="h3" size={{ base: "sm", md: "md" }}>
           {title}
         </Heading>
         <Text color="grey" fontSize={{ base: "sm", md: "md" }}>
           {description}
         </Text>
       </Box>
+
+      <Button
+        backgroundColor={"brand.500"}
+        color={"white"}
+        onClick={() => navigate(`/category/${id}/products`)}
+        fontSize={{ base: "14px", lg: "" }}
+        p={{ base: "2" }}
+      >
+        View Products
+      </Button>
     </Stack>
   );
 };
 
 const ProductCategoriesGrid: React.FC = () => {
+  const { data, isLoading, error } = useCategories();
+  if (isLoading) {
+    return (
+      <Center height={"70vh"}>
+        <Spinner />
+      </Center>
+    );
+  }
+  if (error) {
+    return (
+      <Center>
+        <Heading>Something Wrong Happend</Heading>
+      </Center>
+    );
+  }
   return (
-    <Box px={{ base: 4, md: 8 }} py={8}>
-      <SimpleGrid columns={{ base: 1, md: 1, lg: 2 }} spacing={10}>
-        <ProductCategory
-          icon={cableManagement}
-          title="Cable Management System"
-          description="Explore our comprehensive range of cutting-edge cable management systems to streamline installation, enhance safety, and revolutionize cable organization."
-        />
-        <ProductCategory
-          icon={structuralSupport}
-          title="Structural Support Systems"
-          description="Premier Manufacturer of precision C-Channel profiles and accessories providing top-quality, reliable structural solutions."
-        />
-        <ProductCategory
-          icon={cableFastners}
-          title="Cable Fasteners"
-          description="Introducing our top-quality cable fasteners for efficient and secure cable management solutions."
-        />
-        <ProductCategory
-          icon={rollers}
-          title="Different Types of Rollers"
-          description="Explore our high-quality cable and pipe rollers designed for various industrial needs."
-        />
-        <ProductCategory
-          icon={fastners}
-          title="Fasteners & Brackets"
-          description="Morbi eu neque vel quam lobortis en efficitur et dignissim felis."
-        />
-        <ProductCategory
-          icon={battery}
-          title="Battery Racks/Cabinets"
-          description="Durable and modular Battery Racks, Pedestals & Switch Boxes designed with your needs and measurements."
-        />
-        <ProductCategory
-          icon={light}
-          title="Lighting Columns/Poles"
-          description="Premier manufacturer of diverse pole structures and guards with precision plasma cutting tailored to meet your specific needs."
-        />
-        <ProductCategory
-          icon={guards}
-          title="Guards"
-          description="Introducing our top-quality cable fasteners for efficient and secure cable management solutions."
-        />
+    <Box py={8}>
+      <SimpleGrid columns={{ base: 1, md: 1, lg: 4 }} spacing={10}>
+        {data.map((category, idx) => (
+          <CategoryCard
+            key={idx}
+            id={category.id}
+            icon={`${assetsBaseURL}/${category.image}`}
+            title={category.category_name}
+            description={category.description}
+          />
+        ))}
       </SimpleGrid>
     </Box>
   );

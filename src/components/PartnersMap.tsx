@@ -1,40 +1,73 @@
-import {
-  Box,
-  Container,
-  HStack,
-  SimpleGrid,
-  Image,
-  keyframes,
-  useColorModeValue,
-} from "@chakra-ui/react";
-import { useState } from "react";
-import { circularImages, saudiMapStates } from "../constants/data";
-
+import { Box, Button, Center, HStack } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { saudiMapStates } from "../constants/data";
+import PartnersCircle from "./PartnersCircle";
+import logo from "../assets/logo.png";
 export default function PartnersMap() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const clientsBoxColor = useColorModeValue(
-    "rgba(0,0,0,0.6)",
-    "rgba(255,255,255,0.6)"
-  );
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [animatingIndex, setAnimatingIndex] = useState<number | null>(0);
 
-  const fadeIn = keyframes`
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
-  `;
+  useEffect(() => {
+    if (selectedIndex === null) {
+      const interval = setInterval(() => {
+        const randomIndex = Math.floor(Math.random() * saudiMapStates.length);
+
+        setAnimatingIndex(randomIndex);
+      }, 4000);
+
+      return () => clearInterval(interval);
+    }
+    return () => {};
+  }, [animatingIndex, selectedIndex]);
+
+  const [viewBox, setViewBox] = useState("0 0 1000 824");
+  const [isZoomed, setIsZoomed] = useState(false);
+
+  const handlePathClick = (index: number) => {
+    const clickedPath = document.getElementById(saudiMapStates[index].id);
+    if (clickedPath) {
+      // @ts-expect-error 231
+      const bbox = clickedPath.getBBox();
+
+      const padding = 20;
+      const newViewBox = `${bbox.x - padding} ${bbox.y - padding} ${
+        bbox.width + 2 * padding
+      } ${bbox.height + 2 * padding}`;
+      setAnimatingIndex(null);
+      setViewBox(newViewBox);
+      setSelectedIndex(index);
+      setIsZoomed(true);
+    }
+  };
+
+  const handleResetZoom = () => {
+    setViewBox("0 0 1000 824");
+    setSelectedIndex(null);
+    setIsZoomed(false);
+  };
 
   return (
-    <HStack width={"full"} position="relative">
-      {/* SVG Map */}
-      <Box minHeight="100vh" width="full">
+    <HStack>
+      <Box
+        // height={isMobile ? "40vh" : "80vh"}
+        height={"100vh"}
+        width={"50%"}
+        position="relative"
+        mb={20}
+      >
         <svg
+          height="100%"
+          width="100%"
           fill="#31639e"
-          height="824"
-          stroke="#000000"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width=".5"
-          version="1.2"
-          width="1000"
+          stroke="#ffffff"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth=".5"
+          version="1.1"
+          viewBox={viewBox}
+          style={{
+            transition: isZoomed ? "viewBox 1s ease" : "viewBox 0.5s ease",
+          }}
           xmlns="http://www.w3.org/2000/svg"
         >
           <g id="features">
@@ -45,62 +78,70 @@ export default function PartnersMap() {
                 id={state.id}
                 name={state.name}
                 filter={
-                  hoveredIndex === null || hoveredIndex === index
+                  selectedIndex === index || animatingIndex === index
                     ? "brightness(0.8)"
-                    : "brightness(0.3)"
+                    : "brightness(0.5)"
                 }
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                style={{ transition: "filter 0.3s ease" }}
-              ></path>
+                onClick={() => {
+                  if (selectedIndex === index) {
+                    return handleResetZoom();
+                  }
+                  return handlePathClick(index);
+                }}
+                style={{ transition: "filter 1s ease" }}
+              />
             ))}
           </g>
+          {/* Place images on top of the selected path */}
         </svg>
-      </Box>
-
-      {/* Centered Grid box with circular images and background of brand.500 */}
-      <Container
-        width={"full"}
-        minHeight={"200px"}
-        border={"1px solid #31639e"}
-        borderRadius="md"
-        p={4}
-        boxShadow="lg"
-        backgroundColor={clientsBoxColor} // Custom brand color
-        display={hoveredIndex !== null ? "block" : "none"}
-        animation={`${fadeIn} 0.5s ease forwards`}
-        position="absolute"
-        top="10%" // Center vertically
-        left="70%" // Center horizontally
-        transform="translate(-50%, -50%)" // Ensure it's perfectly centered
-      >
-        <SimpleGrid columns={[2, 3, 4]} spacing={[4, 6, 10]} minWidth={"full"}>
-          {circularImages.map((img, idx) => (
-            <Box
-              key={idx}
-              backgroundColor={"secondary.500"}
-              boxSize="75px"
-              borderRadius="full"
-              overflow="hidden"
-              boxShadow="0px 4px 6px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.08)" // Subtle shadow
-              transition="transform 0.5s ease, box-shadow 0.5s ease"
-              _hover={{
-                transform: "scale(1.1)",
-                boxShadow:
-                  "0px 10px 15px rgba(0, 0, 0, 0.2), 0px 4px 6px rgba(0, 0, 0, 0.1)", // Stronger shadow on hover
-              }}
-            >
-              <Image
+        {!selectedIndex &&
+          saudiMapStates.map(
+            (state, idx) =>
+              animatingIndex === idx && (
+                <PartnersCircle
+                  key={idx}
+                  src={logo}
+                  zIndex={10}
+                  // size={{ base: "32px", md: "4vw" }}
+                  size={"4vw"}
+                  position={"absolute"}
+                  {...state.intialAnimationPos}
+                />
+              )
+          )}
+        {isZoomed &&
+          selectedIndex !== null &&
+          saudiMapStates[selectedIndex].images.map((img, idx) => {
+            return (
+              <PartnersCircle
+                key={idx}
                 src={img}
-                alt={`Partner ${idx + 1}`}
-                objectFit="contain"
-                width="full"
-                height="full"
+                zIndex={10}
+                size={{ base: "32px", md: "100px" }}
+                position={"absolute"}
+                {...saudiMapStates[selectedIndex].pos[idx]}
               />
-            </Box>
-          ))}
-        </SimpleGrid>
-      </Container>
+            );
+          })}
+        {isZoomed && selectedIndex !== null && (
+          <>
+            {/* Reset Zoom Button */}
+            <Button
+              onClick={handleResetZoom}
+              position="absolute"
+              bottom="20px"
+              right="20px"
+              bg="#31639e"
+              color="white"
+              _hover={{ bg: "#274d7a" }}
+              shadow="lg"
+              borderRadius="md"
+            >
+              Reset Zoom
+            </Button>
+          </>
+        )}
+      </Box>
     </HStack>
   );
 }

@@ -16,16 +16,30 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import NavLinks from "./NavLink";
 import logo from "../assets/logo.png";
+import { BiLogOut } from "react-icons/bi";
+import apiService from "../services/api-service";
 const Navbar: React.FC = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure(); // Controls Drawer
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
   const bg = useColorModeValue("navbar.light", "navbar.dark");
   const color = useColorModeValue("text.light", "text.dark");
+  const drawerbg = useColorModeValue("white", "black");
   const activeColor = "brand.500";
-
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    apiService
+      .post(
+        "/admin/logout",
+        {},
+        { headers: { Authorization: localStorage.getItem("token") } }
+      )
+      .then(() => {});
+    localStorage.clear();
+    navigate("/");
+  };
   return (
     <Box
       className="navbar"
@@ -63,18 +77,29 @@ const Navbar: React.FC = () => {
           display={{ base: "flex", md: "none" }} // Show only on mobile
           onClick={onOpen}
           variant="ghost"
-          size="lg"
+          size={{ base: "sm", md: "md" }}
         />
 
         {/* Toggle Color Mode Button */}
-        <IconButton
-          aria-label="Toggle color mode"
-          icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-          onClick={toggleColorMode}
-          variant="ghost"
-          size={{ base: "sm", md: "md" }}
-          ml={2}
-        />
+        <HStack spacing={4}>
+          <IconButton
+            aria-label="Toggle color mode"
+            icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+            onClick={toggleColorMode}
+            variant="ghost"
+            size={{ base: "sm", md: "md" }}
+            ml={2}
+          />
+          {localStorage.getItem("token") && (
+            <IconButton
+              aria-label="Logout"
+              icon={<BiLogOut />}
+              onClick={handleLogout}
+              variant="ghost"
+              size={{ base: "sm", md: "md" }}
+            />
+          )}
+        </HStack>
       </Flex>
 
       {/* Mobile Drawer */}
@@ -82,9 +107,11 @@ const Navbar: React.FC = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader backgroundColor={"brand.500"}>Menu</DrawerHeader>
+          <DrawerHeader backgroundColor={"brand.500"} color={"white"}>
+            Menu
+          </DrawerHeader>
 
-          <DrawerBody backgroundColor={"black"}>
+          <DrawerBody bgColor={drawerbg}>
             {/* Navigation Links for Mobile */}
             <NavLinks
               activeColor={activeColor}
