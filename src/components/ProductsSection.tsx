@@ -23,7 +23,7 @@ export const ProductsSection = () => {
           <ProductCategoriesGrid />
 
           <Box
-            textAlign={{ base: "center", md: "start" }}
+            textAlign={{ base: "start", md: "start" }}
             mb={20}
             mt={{ base: 10, md: 0 }}
             minWidth={"100%"}

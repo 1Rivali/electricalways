@@ -16,7 +16,6 @@ interface ContactSectionProps {
 }
 
 const HomeContactSection: FC<ContactSectionProps> = ({
-  minWidth = "100%",
   my = { base: 0, md: 15, lg: 20 },
   p = { base: 5, md: 8, lg: 10 },
   ...rest // This allows extra props to be passed down
@@ -31,6 +30,7 @@ const HomeContactSection: FC<ContactSectionProps> = ({
       my={my}
       p={p}
       background={`radial-gradient(circle, rgba(49,99,158,1) 0%, ${contactGradient} 100%)`}
+      textAlign={{ base: "start", md: "center" }}
       {...rest}
     >
       <Text fontSize={{ base: "lg", md: "xl" }} color={"white"}>

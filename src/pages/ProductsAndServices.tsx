@@ -3,7 +3,7 @@ import ProductCategoriesGrid from "../components/HomeProductCategoryOverview";
 
 const ProductsAndServices = () => {
   return (
-    <Box>
+    <Box px={10}>
       <ProductCategoriesGrid />
     </Box>
   );

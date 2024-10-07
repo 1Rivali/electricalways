@@ -17,6 +17,7 @@ import LoginPage from "./pages/Login";
 import AdminSlideshow from "./pages/admin/AdminSlideshow";
 import AdminProducts from "./pages/admin/AdminProducts";
 import AdminContactUsList from "./pages/admin/AdminContactusList";
+import AdminWhyChooseUs from "./pages/admin/AdminWhyChooseUs";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path="/admin/slideshow" element={<AdminSlideshow />} />
         <Route path="/admin/products" element={<AdminProducts />} />
         <Route path="/admin/contactus" element={<AdminContactUsList />} />
+        <Route path="/admin/whychooseus" element={<AdminWhyChooseUs />} />
       </Routes>
     </>
   );

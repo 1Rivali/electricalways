@@ -10,23 +10,23 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import useWhyChooseUs from "../hooks/useWhyChooseUs"; // Updated hook
 import useFooterImages from "../hooks/useFooterImages";
-
-// import "react-responsive-carousel/lib/styles/carousel.min.css";
-import "swiper/css/bundle";
-
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css/bundle";
+
 export const WhyChooseUsSection = () => {
-  const reasons = [
-    "State of The Art Factory",
-    "High Quality Assurance",
-    "Strong Market Presence",
-    "Cutting Edge Technology",
-    "Competitive Pricing",
-    "Value Guaranteed",
-  ];
-  const { data } = useFooterImages();
+  const { data: reasons, isLoading, error } = useWhyChooseUs(); // Using the updated hook
+  const { data: footerImages } = useFooterImages();
+
+  if (isLoading) {
+    return <p>Loading...</p>; // Display a loading state
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>; // Display an error message
+  }
 
   return (
     <Box
@@ -34,11 +34,12 @@ export const WhyChooseUsSection = () => {
       flexDirection="column"
       alignContent={"flex-start"}
       mt={10}
+      textAlign={"start"}
     >
       <Box
         p={{ base: 6, md: 10 }}
         maxWidth={{ base: "100%", md: "100%" }}
-        textAlign={{ base: "center", md: "start" }}
+        textAlign={{ base: "start", md: "start" }}
         backgroundSize={"cover"}
       >
         <VStack align="start" spacing={5}>
@@ -63,20 +64,20 @@ export const WhyChooseUsSection = () => {
                       fontWeight="bold"
                       fontSize={{ base: "md", md: "lg" }}
                     >
-                      {reason}
+                      {reason.title}
                     </Box>
                     <AccordionIcon />
                   </AccordionButton>
                 </h2>
                 <AccordionPanel color="grey" pb={4}>
-                  Laboris do ad ad consequat do excepteur quis id dolore magna
-                  anim aute velit.
+                  {reason.description}
                 </AccordionPanel>
               </AccordionItem>
             ))}
           </Accordion>
         </VStack>
       </Box>
+
       <Box maxW="full" mx="auto" my={6}>
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}
@@ -87,8 +88,8 @@ export const WhyChooseUsSection = () => {
           autoplay={{ delay: 3500 }}
           loop={true}
         >
-          {data &&
-            data.map((image) => (
+          {footerImages &&
+            footerImages.map((image) => (
               <SwiperSlide key={image.id}>
                 <Image
                   src={image.image_path}

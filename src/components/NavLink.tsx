@@ -30,6 +30,10 @@ const NavLinks: React.FC<NavLinksProps> = ({ activeColor, color, onClick }) => {
       to: "/admin/contactus",
       label: "Contact Us",
     },
+    {
+      to: "/admin/whychooseus",
+      label: "Why Choose Us",
+    },
   ];
   const token = localStorage.getItem("token");
   return (

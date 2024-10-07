@@ -38,7 +38,7 @@ const DropdownItem: React.FC<DropdownItemProps> = ({
         <Text mb={2}>{description}</Text>
 
         <Button colorScheme="blue" onClick={handleOpenBarcode}>
-          Open Barcode
+          Open {title}
         </Button>
       </AccordionPanel>
     </AccordionItem>

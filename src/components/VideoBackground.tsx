@@ -4,7 +4,7 @@ import React from "react";
 import Marquee from "react-fast-marquee";
 import contr1 from "../assets/contracters/1.png";
 import contr2 from "../assets/contracters/2.png";
-import contr3 from "../assets/contracters/3.gif";
+import contr3 from "../assets/contracters/3.png";
 import contr4 from "../assets/contracters/4.png";
 import contr5 from "../assets/contracters/5.png";
 import contr6 from "../assets/contracters/6.png";

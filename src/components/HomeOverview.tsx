@@ -28,6 +28,7 @@ function GradientCard(props) {
       }}
       background={`linear-gradient(to bottom, ${props.experienceColor} 0%, rgba(49,99,158,1) 100%)`}
       height={"100%"}
+      width={"full"}
     >
       <Icon
         width={{
@@ -140,7 +141,7 @@ export default function HomeOverview() {
             borderRadius={"32px"}
             left={{ base: "50%", md: "50%" }}
             src={homeOverview1}
-            width={"70%"}
+            width={"60%"}
           />
         </HStack>
       </Box>
